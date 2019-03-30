@@ -1,59 +1,98 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withWrapper, WrapperProvider} from "create-react-server/wrapper";
+import UlInputRadio from './components/ulInputRadio'
+import QuestionnarieForm from './containers/questForm'
 import './styles/style.css'
+////////////////////////////
+import quest from './utils/questionnaire'
+import {setQuestionnaire, setInstruction} from './redux/actions'
+
+const lecturers = [
+    {id: 1566, fio: "Магазёв Алексей Анатольевич"},
+    {id: 711181, fio: "Самотуга Александр Евгеньевич"},
+    {id: 1557, fio: "Михеев Виталий Викторович"},
+];
+
+
 class Test extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             data: JSON.stringify(props.query)
-        }
+        };
+        this.isBrowser = (typeof window !== 'undefined');
+
     }
 
+    static async getInitialProps({location, query, params, store}) {
+        const isBrowser = (typeof window !== 'undefined');
+            await store.dispatch(setQuestionnaire());
+
+            await store.dispatch(setInstruction());
+
+            //return {questionnaire:store.questionnaire}
+
+
+    };
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.questionnaire && !state.questionnaire) {
+            return {questionnaire: props.questionnaire}
+        }
+        return null;
+    }
 
     onChange(event) {
         this.setState({data: event.target.value})
     }
 
+    changeForm() {
+       debugger
+        if (this.state.questionnaire  && this.props.match.path === '/question/:qid' && this.isBrowser) {
+            return (
+                <QuestionnarieForm question={this.state.questionnaire.questions[this.props.match.params.qid]}
+                                   id={this.props.match.params.qid}
+                                   answ={this.state.questionnaire.answerBlocks[0].answers}/>
 
+            )
+        }
+        /*if (this.props.lecturers) {
+            return (
+                <QuestionnarieForm lecturers={this.props.lecturers}/>
+            )
+        }*/
+    }
 
     render() {
+
         return (
             <div className="w3layouts_main wrap">
-
                 <h3>Пожалуйста, ответьте на вопросы .... </h3>
-                <form action="#" method="post" className="agile_form">
-                    <h2>Собственно сам вопрос 1/15</h2>
-                    <ul className="agile_info_select">
-                        <li><input type="radio" name="view" id="excellent"/>
-                            <label htmlFor="excellent">вариант 1</label>
-                            <div className="check w3"/>
-                        </li>
-                        <li><input type="radio" name="view" id="good"/>
-                            <label htmlFor="good"> вариант 2</label>
-                            <div className="check w3ls"/>
-                        </li>
-                        <li><input type="radio" name="view" id="neutral"/>
-                            <label htmlFor="neutral">вариант 3</label>
-                            <div className="check wthree"/>
-                        </li>
-                        <li><input type="radio" name="view" id="poor"/>
-                            <label htmlFor="poor">вариант 4</label>
-                            <div className="check w3_agileits"/>
-                        </li>
-                    </ul>
-                    <h2>Можно даже оставить коментарий. Возможно добавить вконце анкеты</h2>
-                    <textarea placeholder="Additional comments" className="w3l_summary" required=""></textarea>
-                   {/* <input type="text" placeholder="Name" name="name" required=""/>*/}
-                   {/* <input type="email" placeholder="Email" name="email" required=""/>*/}
-                    <input type="submit" value="Далее" className="agileinfo"/>
-                </form>
+                {this.changeForm()}
+                {/* <QuestionnarieForm questionnarie={this.props.questionnarie} id={this.props.id}/>
+                <QuestionnarieForm lecturers={lecturers}/>*/}
+
             </div>
         );
+
+    }
+
+}
+
+function mapStateToProps(store) {
+
+    return {questionnaire: store.questionnaire}
+
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        loadQuestionnaire: () => dispatch(setQuestionnaire())
     }
 }
 
-Test = connect(state => state)(Test);
+Test = connect(mapStateToProps, mapDispatchToProps)(Test);
 
 export default withWrapper(Test);
 //export default Test;

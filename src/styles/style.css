@@ -92,6 +92,23 @@ h1.agile_head {
 	line-height:1.5;
 }
 /* feedback-form*/
+.kartinka { 
+padding-left: 58px; 
+width: 160px; 
+}
+.netKartinki {
+	width: 200px;
+	height: 110px;
+	margin-left: 10px;
+	padding-top: 90px;
+	border: 3px solid #eee;
+	background: #f6f6f6;
+	border-radius: 10px;
+	text-align: center;
+	color: #e6e6e6;
+	font-weight: bold;
+	font-size: 130%;
+}
 .w3layouts_main h3{
 	font-size: 1em;
     color: #e6cfcf;
