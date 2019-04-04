@@ -1,22 +1,25 @@
 import React from 'react'
 import quest from '../utils/questionnaire.js'
 import {withWrapper, WrapperProvider} from "create-react-server/wrapper";
+import {addAnswer} from '../redux/actions'
+import {connect} from 'react-redux'
 
- function ulInputRadio ({answ, lecturers}) {
 
-    /*const lecturers = [
-        {id:1566,fio:"Магазёв Алексей Анатольевич"},
-        {id:711181,fio:"Самотуга Александр Евгеньевич"},
-        {id:1557,fio:"Михеев Виталий Викторович"}
-    ]*/
+class UlInputRadio extends React.Component {
+    constructor(props) {
+        super(props)
+    }
 
-    function generateLi({answ, lecturers}) {
+    generateLi({answ, lecturers}) {
         if (answ) {
+
             return (
                 <ul className="agile_info_select">
                     {answ.map((answ) => (
-                        <li key={answ.name}><input type="radio" name='view' id={answ.name}/>
-                            <label htmlFor={answ.name}>{answ.name}</label>
+                        <li key={answ.id}><input type="radio" name='view' id={answ.id}
+                                                 defaultChecked={this.isChecked(answ.id)}
+                                                 onClick={this.onClick.bind(this)}/>
+                            <label htmlFor={answ.id}>{answ.name}</label>
                             <div className="check w3"/>
                         </li>
                     ))}
@@ -41,17 +44,46 @@ import {withWrapper, WrapperProvider} from "create-react-server/wrapper";
 
     }
 
+    onClick(event) {
+        const questionId = this.props.questionId;
+        const obj = [];
+        obj[questionId] = event.target.id;
+        this.props.addAnswer(obj)
 
-    if (lecturers) {
-        return (
-            generateLi({lecturers}))
     }
-    if (answ) {
-        return (generateLi({answ}))
+
+    isChecked(id) {
+        if (this.props.answers) {
+            if (this.props.answers[this.props.questionId] === `${id}`) {
+                return true
+            }
+        }
+        return false
     }
 
-
-
+    render() {
+        if (this.props.lecturers) {
+            const lecturers = this.props.lecturers;
+            return (
+                this.generateLi({lecturers}))
+        }
+        if (this.props.answ) {
+            const answ = this.props.answ;
+            return (this.generateLi({answ}))
+        }
+    }
 }
 
-export default withWrapper(ulInputRadio)
+function mapStateToProps(store) {
+    return {
+        answers: store.answersBase.answers
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        addAnswer: (answer) => dispatch(addAnswer(answer))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UlInputRadio)

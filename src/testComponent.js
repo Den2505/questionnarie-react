@@ -14,8 +14,9 @@ const lecturers = [
     {id: 1557, fio: "Михеев Виталий Викторович"},
 ];
 
-// lecturers=[ {"id": 1566, "fio": "Магазёв Алексей Анатольевич"}, {"id": 711181, "fio": "Самотуга Александр Евгеньевич"}, {"id": 1557, "fio": "Михеев Виталий Викторович"} ]
-
+/*
+lecturers=[%20{"id":%201566,%20"fio":%20"Магазёв%20Алексей%20Анатольевич"},%20{"id":%20711181,%20"fio":%20"Самотуга%20Александр%20Евгеньевич"},%20{"id":%201557,%20"fio":%20"Михеев%20Виталий%20Викторович"}%20]&discipline=RTYRTY
+*/
 
 class Test extends React.Component {
     constructor(props) {
@@ -57,13 +58,13 @@ class Test extends React.Component {
         }
         if (this.props.query.lecturers && this.props.match.path === '/lecturers') {
             return (
-                <QuestionnarieForm lecturers={JSON.parse(this.props.query.lecturers)}/>
+                <QuestionnarieForm lecturers={JSON.parse(this.props.query.lecturers)} discipline={this.props.query.discipline}/>
             )
         }
 
         if (this.props.match.path === '/' && this.props.instruction.text){
             return (
-                <QuestionnarieForm instruction={this.props.instruction.text}/>
+                <QuestionnarieForm instruction={this.props.instruction.text} />
             )
         }
 

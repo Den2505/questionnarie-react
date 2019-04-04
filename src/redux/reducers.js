@@ -32,10 +32,29 @@ function instructionReducer(store,action) {
 
 }
 
+function answersReducer(store,action) {
+    if(action.type === 'UPDATE_ANSWERS'){
+        if(store.answers){
+            const answers = store.answers;
+            const newAnswer = action.payload;
+            return {
+                ...store,
+                answers: Object.assign(answers,newAnswer)
+            }
+        }
+        return {
+            ...store,
+            answers: action.payload
+        }
+    }
+    return {...store}
+}
+
 export default combineReducers(
     {   query,
         questionnaire:questionnaireReducer,
         instruction: instructionReducer,
+        answersBase: answersReducer
 
     }
 )

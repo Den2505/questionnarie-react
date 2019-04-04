@@ -6,12 +6,12 @@ const quest = `{
   },
   "questions": [
     {
-      "questionId": 1,
+      "id": 0,
       "name": "Как у вас дела?",
       "answBlockId":1
     },
     {
-      "questionId": 2,
+      "id": 1,
       "name": "Как дела Э?",
       "answBlockId":2
     }
@@ -19,31 +19,31 @@ const quest = `{
   ],
   "answBlocks": [
     {
-      "blockId": 1,
+      "blockId": 0,
       "category": "A",
       "answers": [
         {
-          "answId": 1,
+          "id": 0,
           "name": "Отлично",
           "points": 5
         },
         {
-          "answId": 2,
+          "id": 1,
           "name": "Хорошо",
           "points": 4
         },
         {
-          "answId": 3,
+          "id": 2,
           "name": "Нормально",
           "points": 3
         },
         {
-          "answId": 4,
+          "id": 3,
           "name": "Плохо",
           "points": 2
         },
         {
-          "answId": 5,
+          "id": 4,
           "name": "Ужасно",
           "points": 1
         }
@@ -51,31 +51,31 @@ const quest = `{
     }
     ,
      {
-      "blockId": 2,
+      "blockId": 1,
       "category": "A",
       "answers": [
         {
-          "answId": 1,
+          "id": 0,
           "name": "Отлично",
           "points": 5
         },
         {
-          "answId": 2,
+          "id": 1,
           "name": "Хорошо",
           "points": 4
         },
         {
-          "answId": 3,
+          "id": 2,
           "name": "Нормально",
           "points": 3
         },
         {
-          "answId": 4,
+          "id": 3,
           "name": "Плохо",
           "points": 2
         },
         {
-          "answId": 5,
+          "id": 4,
           "name": "123",
           "points": 1
         }

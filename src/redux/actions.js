@@ -14,3 +14,10 @@ export const setInstruction = function () {
     }
 };
 
+export const addAnswer = function (answer) {
+    return {
+        type:'UPDATE_ANSWERS',
+        payload: answer,
+    }
+}
+
