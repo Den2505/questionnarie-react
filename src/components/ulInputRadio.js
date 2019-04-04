@@ -18,7 +18,7 @@ class UlInputRadio extends React.Component {
                     {answ.map((answ) => (
                         <li key={answ.id}><input type="radio" name='view' id={answ.id}
                                                  defaultChecked={this.isCheckedAnswer(answ.id)}
-                                                 onClick={this.onClickAnswer.bind(this)}/>
+                                                 onClick={this.onClickAnswer.bind(this)} required/>
                             <label htmlFor={answ.id}>{answ.name}</label>
                             <div className="check w3"/>
                         </li>

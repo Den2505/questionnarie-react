@@ -39,16 +39,15 @@ class Test extends React.Component {
 
     };
 
-    onChange(event) {
-        this.setState({data: event.target.value})
-    }
-
+findAnswer(blockId){
+   return this.props.questionnaire.answerBlocks.find((block)=> (block.id === blockId))
+}
     changeForm() {
         if (this.props.questionnaire && this.props.match.path === '/question/:qid' && this.isBrowser) {
             return (
                 <QuestionnarieForm question={this.props.questionnaire.questions[this.props.match.params.qid]}
                                    id={this.props.match.params.qid} length={this.props.questionnaire.questions.length}
-                                   answ={this.props.questionnaire.answerBlocks[0].answers}/>
+                                   answ={this.findAnswer(this.props.questionnaire.questions[this.props.match.params.qid].answBlockId).answers /*this.props.questionnaire.answerBlocks[0].answers*/} />
 
             )
         }

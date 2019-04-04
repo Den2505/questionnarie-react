@@ -8,18 +8,18 @@ const quest = `{
     {
       "id": 0,
       "name": "Как у вас дела?",
-      "answBlockId":1
+      "answBlockId":0
     },
     {
       "id": 1,
-      "name": "Как дела Э?",
-      "answBlockId":2
+      "name": "Вопрос №2",
+      "answBlockId":1
     }
     
   ],
   "answBlocks": [
     {
-      "blockId": 0,
+      "id": 0,
       "category": "A",
       "answers": [
         {
@@ -51,7 +51,7 @@ const quest = `{
     }
     ,
      {
-      "blockId": 1,
+      "id": 1,
       "category": "A",
       "answers": [
         {
