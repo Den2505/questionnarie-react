@@ -21,3 +21,10 @@ export const addAnswer = function (answer) {
     }
 }
 
+export const addLecturer = function (lecturer) {
+    return {
+        type: 'UPDATE_LECTURER',
+        payload: lecturer
+    }
+}
+

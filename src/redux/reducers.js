@@ -21,7 +21,7 @@ function questionnaireReducer(store,action) {
 
 
 function instructionReducer(store,action) {
-    if(action.type === 'SET_INSTRUCTION' && !store.instruction) {
+    if(action.type === 'SET_INSTRUCTION' && !store.text) {
         return {
             ...store,
             text: action.payload
@@ -50,11 +50,22 @@ function answersReducer(store,action) {
     return {...store}
 }
 
+function lecturersReducer(store,action) {
+    if(action.type === 'UPDATE_LECTURER'){
+        return {
+            ...store,
+            id: action.payload
+        }
+    }
+    return {...store}
+}
+
 export default combineReducers(
     {   query,
         questionnaire:questionnaireReducer,
         instruction: instructionReducer,
-        answersBase: answersReducer
+        answersBase: answersReducer,
+        lecturer:lecturersReducer,
 
     }
 )

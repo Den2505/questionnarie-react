@@ -24,8 +24,8 @@ export default ({state, props, req}) => {
     return (
         <Provider store={createStore(state)}>
             <WrapperProvider initialProps={props}>
-                <h2>STATE - {JSON.stringify(state)}</h2>
-                <h3>PROPS - {JSON.stringify(props)}</h3>
+                {/*<h2>STATE - {JSON.stringify(state)}</h2>
+                <h3>PROPS - {JSON.stringify(props)}</h3>*/}
                 <Switch>
                    <Route exact path="/" component={Test}/>
                    <Route exact path="/lecturers" component={Test}/>

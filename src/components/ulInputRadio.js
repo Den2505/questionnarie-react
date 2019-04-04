@@ -1,7 +1,7 @@
 import React from 'react'
 import quest from '../utils/questionnaire.js'
 import {withWrapper, WrapperProvider} from "create-react-server/wrapper";
-import {addAnswer} from '../redux/actions'
+import {addAnswer, addLecturer} from '../redux/actions'
 import {connect} from 'react-redux'
 
 
@@ -17,8 +17,8 @@ class UlInputRadio extends React.Component {
                 <ul className="agile_info_select">
                     {answ.map((answ) => (
                         <li key={answ.id}><input type="radio" name='view' id={answ.id}
-                                                 defaultChecked={this.isChecked(answ.id)}
-                                                 onClick={this.onClick.bind(this)}/>
+                                                 defaultChecked={this.isCheckedAnswer(answ.id)}
+                                                 onClick={this.onClickAnswer.bind(this)}/>
                             <label htmlFor={answ.id}>{answ.name}</label>
                             <div className="check w3"/>
                         </li>
@@ -30,7 +30,8 @@ class UlInputRadio extends React.Component {
             return (
                 <ul className="agile_info_select">
                     {lecturers.map((lecturer) => (
-                        <li><input type="radio" name="view" id={lecturer.id}/>
+                        <li><input type="radio" name="view" id={lecturer.id} onClick={this.onClickLecturer.bind(this)}
+                                   defaultChecked={this.isCheckedLecturer(lecturer.id)}/>
                             <label htmlFor={lecturer.id}>{lecturer.fio}</label>
                             <div className="check w3"/>
                             <div className="kartinka">
@@ -44,7 +45,7 @@ class UlInputRadio extends React.Component {
 
     }
 
-    onClick(event) {
+    onClickAnswer(event) {
         const questionId = this.props.questionId;
         const obj = [];
         obj[questionId] = event.target.id;
@@ -52,10 +53,24 @@ class UlInputRadio extends React.Component {
 
     }
 
-    isChecked(id) {
+    isCheckedAnswer(id) {
         if (this.props.answers) {
             if (this.props.answers[this.props.questionId] === `${id}`) {
                 return true
+            }
+        }
+        return false
+    }
+
+    onClickLecturer(event) {
+        this.props.addLecturer(event.target.id)
+    }
+
+    isCheckedLecturer(id) {
+        if(this.props.lecturer){
+            if(this.props.lecturer === `${id}`){
+
+                return true;
             }
         }
         return false
@@ -76,13 +91,15 @@ class UlInputRadio extends React.Component {
 
 function mapStateToProps(store) {
     return {
+        lecturer: store.lecturer.id,
         answers: store.answersBase.answers
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        addAnswer: (answer) => dispatch(addAnswer(answer))
+        addAnswer: (answer) => dispatch(addAnswer(answer)),
+        addLecturer: (id) => dispatch(addLecturer(id))
     }
 }
 
