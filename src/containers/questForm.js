@@ -45,6 +45,17 @@ class QuestionnarieForm extends React.Component {
             )
         }
 
+        if (this.props.instruction){
+            debugger
+            return (
+                <form onSubmit={this.onSubmitInstruction.bind(this)} className="agile_form">
+                    <h2>Добро пожаловать!</h2>
+                    <h2>{this.props.instruction}</h2>
+                    <input type="submit" value="Далее" className="agileinfo"/>
+                </form>
+            )
+        }
+
     }
 
     onSubmitAnsw(event) {
@@ -52,9 +63,14 @@ class QuestionnarieForm extends React.Component {
         this.props.history.push(`/question/${new Number(this.props.id) + 1}/`)
 
     }
-    onSubmitLecturers() {
-        this.props.history.push(`/quest/${0}/`)
+    onSubmitLecturers(event) {
+        event.preventDefault();
+        this.props.history.push(`/question/${0}/`)
 
+    }
+    onSubmitInstruction(event){
+        event.preventDefault();
+        this.props.history.push(`/lecturers`)
     }
 
     render() {

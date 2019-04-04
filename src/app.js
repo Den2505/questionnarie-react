@@ -28,6 +28,7 @@ export default ({state, props, req}) => {
                 <h3>PROPS - {JSON.stringify(props)}</h3>
                 <Switch>
                    <Route exact path="/" component={Test}/>
+                   <Route exact path="/lecturers" component={Test}/>
                    <Route exact path="/question/:qid" render = {(props)=>(<Test {...props} key={props.match.params.qid} />)}/>
                    <Route exact path="/finish" render = {(props)=>(<Test {...props} />)}/>
 
