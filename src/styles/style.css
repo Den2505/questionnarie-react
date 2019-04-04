@@ -74,6 +74,7 @@ ul{
 	background:url(omgtu-face.jpg)no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
+	background-position: center center;
 }
 .wrap {
     padding: 2.3em;

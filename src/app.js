@@ -30,7 +30,7 @@ export default ({state, props, req}) => {
                    <Route exact path="/" component={Test}/>
                    <Route exact path="/lecturers" component={Test}/>
                    <Route exact path="/question/:qid" render = {(props)=>(<Test {...props} key={props.match.params.qid} />)}/>
-                   <Route exact path="/finish" render = {(props)=>(<Test {...props} />)}/>
+                   <Route exact path="/finish" component={Test}/>
 
 {/*
                     <Route path="/page" component={Page}/>

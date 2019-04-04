@@ -39,13 +39,6 @@ class Test extends React.Component {
 
     };
 
-    /*   static getDerivedStateFromProps(props, state) {
-           if (props.questionnaire && !state.questionnaire) {
-               return {questionnaire: props.questionnaire}
-           }
-           return null;
-       }
-   */
     onChange(event) {
         this.setState({data: event.target.value})
     }
@@ -54,7 +47,7 @@ class Test extends React.Component {
         if (this.props.questionnaire && this.props.match.path === '/question/:qid' && this.isBrowser) {
             return (
                 <QuestionnarieForm question={this.props.questionnaire.questions[this.props.match.params.qid]}
-                                   id={this.props.match.params.qid}
+                                   id={this.props.match.params.qid} length={this.props.questionnaire.questions.length}
                                    answ={this.props.questionnaire.answerBlocks[0].answers}/>
 
             )
@@ -69,6 +62,15 @@ class Test extends React.Component {
         if (this.props.match.path === '/' && this.props.instruction.text) {
             return (
                 <QuestionnarieForm instruction={this.props.instruction.text}/>
+            )
+        }
+
+        if (this.props.match.path === '/finish') {
+            return (
+                <div>
+                    <br></br>
+                    <h3 align="center">Конец Анкеты</h3>
+                </div>
             )
         }
 

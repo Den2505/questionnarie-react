@@ -59,7 +59,14 @@ class QuestionnarieForm extends React.Component {
 
     onSubmitAnsw(event) {
         event.preventDefault();
-        this.props.history.push(`/question/${new Number(this.props.id) + 1}/`)
+        getIndex = getIndex.bind(this);
+        function getIndex() {
+            if(this.props.length-1 > Number(this.props.id)){
+                return (`/question/${Number(this.props.id) + 1}/`)
+            }
+            return (`/finish`)
+        }
+        this.props.history.push(getIndex())
 
     }
     onSubmitLecturers(event) {
