@@ -1,10 +1,9 @@
 import React from "react";
 import {Provider} from "react-redux";
-import {Route, Switch, withRouter} from "react-router";
+import {Route, Switch} from "react-router";
 import {WrapperProvider} from "create-react-server/wrapper";
 import Test from "./testComponent"
 import createStore from "./redux/store";
-import quest from './utils/questionnaire'
 
 export default ({state, props, req}) => {
 
@@ -15,11 +14,6 @@ export default ({state, props, req}) => {
         };
     }
 
-    const lecturers = [
-        {id:1566,fio:"Магазёв Алексей Анатольевич"},
-        {id:711181,fio:"Самотуга Александр Евгеньевич"},
-        {id:1557,fio:"Михеев Виталий Викторович"},
-    ];
 
     return (
         <Provider store={createStore(state)}>

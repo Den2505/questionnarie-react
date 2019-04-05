@@ -1,8 +1,6 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {withWrapper, WrapperProvider} from "create-react-server/wrapper";
+import {withWrapper} from "create-react-server/wrapper";
 import UlInputRadio from "../components/ulInputRadio";
-import {withRouter} from "react-router";
 
 class QuestionnarieForm extends React.Component {
     constructor(props) {
@@ -59,7 +57,9 @@ class QuestionnarieForm extends React.Component {
 
     onSubmitAnsw(event) {
         event.preventDefault();
+        // eslint-disable-next-line
         getIndex = getIndex.bind(this);
+        // eslint-disable-next-line
         function getIndex() {
             if(this.props.length-1 > Number(this.props.id)){
                 return (`/question/${Number(this.props.id) + 1}/`)

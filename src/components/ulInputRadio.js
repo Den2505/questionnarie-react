@@ -1,14 +1,9 @@
 import React from 'react'
-import quest from '../utils/questionnaire.js'
-import {withWrapper, WrapperProvider} from "create-react-server/wrapper";
 import {addAnswer, addLecturer} from '../redux/actions'
 import {connect} from 'react-redux'
 
 
 class UlInputRadio extends React.Component {
-    constructor(props) {
-        super(props)
-    }
 
     generateLi({answ, lecturers}) {
         if (answ) {
@@ -35,7 +30,7 @@ class UlInputRadio extends React.Component {
                             <label htmlFor={lecturer.id}>{lecturer.fio}</label>
                             <div className="check w3"/>
                             <div className="kartinka">
-                                <img src={`https://omgtu.ru/ecab/persons/photo.php?func=getblob&f=${lecturer.id}`}/>
+                                <img alt='' src={`https://omgtu.ru/ecab/persons/photo.php?func=getblob&f=${lecturer.id}`}/>
                             </div>
                         </li>
                     ))}

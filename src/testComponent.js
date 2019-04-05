@@ -1,15 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {withWrapper, WrapperProvider} from "create-react-server/wrapper";
+import {withWrapper} from "create-react-server/wrapper";
 import QuestionnarieForm from './containers/questForm'
 import './styles/style.css'
 import {setQuestionnaire, setInstruction} from './redux/actions'
 
-const lecturers = [
+/*const lecturers = [
     {id: 1566, fio: "Магазёв Алексей Анатольевич"},
     {id: 711181, fio: "Самотуга Александр Евгеньевич"},
     {id: 1557, fio: "Михеев Виталий Викторович"},
-];
+];*/
 
 /*
 lecturers=[{"id":1566,%20"fio":"Магазёв Алексей Анатольевич"},
@@ -29,7 +29,6 @@ class Test extends React.Component {
     }
 
     static async getInitialProps({location, query, params, store}) {
-        const isBrowser = (typeof window !== 'undefined');
         if (!store.getState().questionnaire.questions) {
             await store.dispatch(setQuestionnaire());
         }
@@ -79,7 +78,9 @@ findAnswer(blockId){
 
         return (
             <div className="w3layouts_main wrap">
+{/*
                 <h3>Пожалуйста, ответьте на вопросы .... </h3>
+*/}
                 {this.changeForm()}
             </div>
         );
