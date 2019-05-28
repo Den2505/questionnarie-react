@@ -1,11 +1,26 @@
-import {getQuestionnaire,getInstruction} from '../utils/backendDependencies'
-export const setQuestionnaire = function () {
+import {getInstruction} from '../utils/backendDependencies'
+
+export const setQuestionnaire = function (quest) {
     return {
         type: 'SET_QUESTIONNAIRE',
-        payload: getQuestionnaire()
+        payload: quest
     }
-    
+
 };
+
+export const fetchQuestionnaire = async function (dispatch) {
+
+    fetch('http://127.0.0.1:3001/api/questionnaire').then(res => res.json())
+        .then((questionnaire) => {
+
+            const quest = questionnaire.questionnaire.json;
+            const questions = quest.questions;
+            const generalInformation = quest.general;
+            const answerBlocks = quest.answBlocks;
+            dispatch(setQuestionnaire({questions, generalInformation, answerBlocks}))
+
+        })
+}
 
 export const setInstruction = function () {
     return {
@@ -16,7 +31,7 @@ export const setInstruction = function () {
 
 export const addAnswer = function (answer) {
     return {
-        type:'UPDATE_ANSWERS',
+        type: 'UPDATE_ANSWERS',
         payload: answer,
     }
 }
@@ -27,4 +42,3 @@ export const addLecturer = function (lecturer) {
         payload: lecturer
     }
 }
-

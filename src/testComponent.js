@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {withWrapper} from "create-react-server/wrapper";
 import QuestionnarieForm from './containers/questForm'
 import './styles/style.css'
-import {setQuestionnaire, setInstruction} from './redux/actions'
+import {setQuestionnaire, setInstruction, fetchQuestionnaire} from './redux/actions'
 
 /*const lecturers = [
     {id: 1566, fio: "Магазёв Алексей Анатольевич"},
@@ -29,20 +29,21 @@ class Test extends React.Component {
     }
 
     static async getInitialProps({location, query, params, store}) {
-        if (!store.getState().questionnaire.questions) {
-            await store.dispatch(setQuestionnaire());
-        }
+
         if (!store.getState().instruction.text) {
             await store.dispatch(setInstruction());
         }
-
+        if (!store.getState().questionnaire.questions) {
+           await fetchQuestionnaire(await store.dispatch);
+        }
     };
 
 findAnswer(blockId){
    return this.props.questionnaire.answerBlocks.find((block)=> (block.id === blockId))
 }
     changeForm() {
-        if (this.props.questionnaire && this.props.match.path === '/question/:qid' && this.isBrowser) {
+
+        if (this.props.questionnaire.answerBlocks && this.props.match.path === '/question/:qid' && this.isBrowser) {
             return (
                 <QuestionnarieForm question={this.props.questionnaire.questions[this.props.match.params.qid]}
                                    id={this.props.match.params.qid} length={this.props.questionnaire.questions.length}
@@ -50,14 +51,14 @@ findAnswer(blockId){
 
             )
         }
-        if (this.props.query.lecturers && this.props.match.path === '/lecturers') {
+        if (this.props.query.lecturers && this.props.match.path === '/lecturers' ) {
             return (
                 <QuestionnarieForm lecturers={/*lecturers*/JSON.parse(this.props.query.lecturers)}
                                    discipline={this.props.query.discipline}/>
             )
         }
 
-        if (this.props.match.path === '/' && this.props.instruction.text) {
+        if (this.props.match.path === '/' && this.props.instruction.text && this.isBrowser) {
             return (
                 <QuestionnarieForm instruction={this.props.instruction.text}/>
             )
