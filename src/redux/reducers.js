@@ -4,10 +4,11 @@ function query(store = '/',action) {
 return store;
 }
 
+
 function questionnaireReducer(store,action) {
     if(action.type === 'SET_QUESTIONNAIRE' && !store.questions){
-        const {questGeneralInfo, questions, answerBlocks} = action.payload;
-        return Object.assign({},store, questGeneralInfo, {questions}, {answerBlocks})
+        const {generalInformation, questions, answerBlocks} = action.payload;
+        return Object.assign({},store, generalInformation, {questions}, {answerBlocks})
         /*return {
             ...store,
             questGeneralInfo,
@@ -59,6 +60,8 @@ function lecturersReducer(store,action) {
     }
     return {...store}
 }
+
+
 
 export default combineReducers(
     {   query,

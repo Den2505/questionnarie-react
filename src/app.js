@@ -8,9 +8,11 @@ import createStore from "./redux/store";
 export default ({state, props, req}) => {
 
     if (!state && req) {
+      //  console.log("STUDENT  "+ req.query.student);
         state = {
             //'body' : req.body,
-            'query':req.query
+            'query':req.query,
+
         };
     }
 
@@ -25,6 +27,7 @@ export default ({state, props, req}) => {
                    <Route exact path="/lecturers" component={Test}/>
                    <Route exact path="/question/:qid" render = {(props)=>(<Test {...props} key={props.match.params.qid} />)}/>
                    <Route exact path="/finish" component={Test}/>
+                   <Route exact path="/error" component={Test}/>
 
 {/*
                     <Route path="/page" component={Page}/>

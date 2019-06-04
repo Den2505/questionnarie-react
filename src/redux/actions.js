@@ -20,7 +20,21 @@ export const fetchQuestionnaire = async function (dispatch) {
             dispatch(setQuestionnaire({questions, generalInformation, answerBlocks}))
 
         })
-}
+};
+
+export const sendAnswer = function (message) {
+    return fetch('http://127.0.0.1:3001/api/answer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(message)
+    })
+        .then((res) => {
+           return res.status
+        })
+
+};
 
 export const setInstruction = function () {
     return {

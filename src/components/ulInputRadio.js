@@ -43,14 +43,14 @@ class UlInputRadio extends React.Component {
     onClickAnswer(event) {
         const questionId = this.props.questionId;
         const obj = [];
-        obj[questionId] = event.target.id;
+        obj[questionId] = Number(event.target.id);
         this.props.addAnswer(obj)
 
     }
 
     isCheckedAnswer(id) {
         if (this.props.answers) {
-            if (this.props.answers[this.props.questionId] === `${id}`) {
+            if (this.props.answers[this.props.questionId] === id) {
                 return true
             }
         }

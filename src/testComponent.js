@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {withWrapper} from "create-react-server/wrapper";
 import QuestionnarieForm from './containers/questForm'
 import './styles/style.css'
-import {setQuestionnaire, setInstruction, fetchQuestionnaire} from './redux/actions'
+import {setInstruction, fetchQuestionnaire, sendAnswer} from './redux/actions'
 
 /*const lecturers = [
     {id: 1566, fio: "Магазёв Алексей Анатольевич"},
@@ -12,12 +12,14 @@ import {setQuestionnaire, setInstruction, fetchQuestionnaire} from './redux/acti
 ];*/
 
 /*
-lecturers=[{"id":1566,%20"fio":"Магазёв Алексей Анатольевич"},
+lecturers=[{"id":1566, "fio":"Магазёв Алексей Анатольевич"},
 {"id":711181,"fio":"Самотуга Александр Евгеньевич"},
 {"id":1557,"fio":"Михеев Виталий Викторович"},
 {"id":480,"fio":"Данилова Ольга Тимофеевна"},
 {"id":808,"fio":"Логинов Константин Валентинович"},
 {"id":1556,"fio":"Трапезников Евгений Валерьевич"}]&discipline=Комплексная Защита Информации
+&group={"id":1, "name": "РТ-161", "speciality": "Радиоэлектроника"}&student={"id":1, "first_name": "Иван", "last_name":"Иванов"}
+&subject={"id": 1, "name":"БОС"}
 */
 
 class Test extends React.Component {
@@ -34,24 +36,25 @@ class Test extends React.Component {
             await store.dispatch(setInstruction());
         }
         if (!store.getState().questionnaire.questions) {
-           await fetchQuestionnaire(await store.dispatch);
+            await fetchQuestionnaire(await store.dispatch);
         }
     };
 
-findAnswer(blockId){
-   return this.props.questionnaire.answerBlocks.find((block)=> (block.id === blockId))
-}
+    findAnswer(blockId) {
+        return this.props.questionnaire.answerBlocks.find((block) => (block.id === blockId))
+    }
+
     changeForm() {
 
         if (this.props.questionnaire.answerBlocks && this.props.match.path === '/question/:qid' && this.isBrowser) {
             return (
                 <QuestionnarieForm question={this.props.questionnaire.questions[this.props.match.params.qid]}
                                    id={this.props.match.params.qid} length={this.props.questionnaire.questions.length}
-                                   answ={this.findAnswer(this.props.questionnaire.questions[this.props.match.params.qid].answBlockId).answers /*this.props.questionnaire.answerBlocks[0].answers*/} />
+                                   answ={this.findAnswer(this.props.questionnaire.questions[this.props.match.params.qid].answBlockId).answers /*this.props.questionnaire.answerBlocks[0].answers*/}/>
 
             )
         }
-        if (this.props.query.lecturers && this.props.match.path === '/lecturers' ) {
+        if (this.props.query.lecturers && this.props.match.path === '/lecturers') {
             return (
                 <QuestionnarieForm lecturers={/*lecturers*/JSON.parse(this.props.query.lecturers)}
                                    discipline={this.props.query.discipline}/>
@@ -68,18 +71,29 @@ findAnswer(blockId){
             return (
                 <div>
                     <br></br>
-                    <h3 align="center">Конец Анкеты</h3>
+                    <h3 align="center">Спасибо, Ваш голос принят!</h3>
                 </div>
             )
         }
 
+        if (this.props.match.path === '/error') {
+            const lecturer = JSON.parse(this.props.query.lecturers).find((elem) =>
+                (elem.id === Number(this.props.lecturer.id)))
+            return (
+                <div>
+                    <br></br>
+                    <h3 align="center">Ошибка! Возмжно вы уже голосовали за дисциплину `{JSON.parse(this.props.query.subject).name}`,
+                        которую преподаёт {lecturer.fio}</h3>
+                </div>
+            )
+        }
     }
 
     render() {
 
         return (
             <div className="w3layouts_main wrap">
-{/*
+                {/*
                 <h3>Пожалуйста, ответьте на вопросы .... </h3>
 */}
                 {this.changeForm()}
@@ -96,13 +110,17 @@ function mapStateToProps(store) {
         questionnaire: store.questionnaire,
         query: store.query,
         instruction: store.instruction,
+        answers: store.answersBase,
+        group: store.group,
+        lecturer: store.lecturer,
+        student: store.student
     }
 
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        loadQuestionnaire: () => dispatch(setQuestionnaire())
+        sendAnswer: (message) => dispatch(sendAnswer(message))
     }
 }
 
