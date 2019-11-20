@@ -169,8 +169,16 @@ width: 160px;
     margin: 0px 0 0px 1em;
     z-index: 9;
     cursor: pointer;
-    text-transform: capitalize;
+    text-transform: none;
     -webkit-transition: all 0.25s linear;
+}
+.count_label{
+	color: #e99c1e;
+	display: inline-block;
+	position: revert;
+	font-size: 0.7em;
+	z-index: 9;
+	-webkit-transition: all 0.25s linear;
 }
 .agile_form ul li label:hover {
 	color:#fff;
@@ -241,6 +249,7 @@ ul li .check{
 	border-radius: 5px;
 	border: 1px solid #696867;
     background: rgba(16, 16, 16, 0.47);
+	margin-top: 1em;
 }
 
 .agile_form input[type="submit"]:hover{

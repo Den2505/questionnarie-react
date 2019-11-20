@@ -13,6 +13,6 @@ import quest from './questionnaire'
 }
 
 export const getInstruction = function () {
-return 'Инструкия'
+return 'Инструкция'
 }
 

@@ -30,7 +30,7 @@ class QuestionnarieForm extends React.Component {
         if (this.props.question) {
             return (
                 <form onSubmit={this.onSubmitAnsw.bind(this)} className="agile_form">
-                    <h2>{this.state.question.name}</h2>
+                    <h2>{this.props.question.id+1}) {this.state.question.name}</h2>
                     <UlInputRadio answ={this.state.answ} questionId={this.props.question.id}/>
                     <input type="submit" value="Далее" className="agileinfo"/>
                 </form>
@@ -39,7 +39,7 @@ class QuestionnarieForm extends React.Component {
         if (this.props.lecturers) {
             return (
                 <form onSubmit={this.onSubmitLecturers.bind(this)} className="agile_form">
-                    <h2>{`Пожалуйста выберите преподавателя, который ведёт дисциплину "${this.props.discipline}":`}</h2>
+                    <h2>{`Пожалуйста, выберите преподавателя, который ведёт дисциплину "${this.props.discipline}":`}</h2>
                     <UlInputRadio lecturers={this.props.lecturers}/>
                     <input type="submit" value="Далее" className="agileinfo"/>
                 </form>

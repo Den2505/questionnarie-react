@@ -14,12 +14,9 @@ import {setInstruction, fetchQuestionnaire, sendAnswer} from './redux/actions'
 /*
 lecturers=[{"id":1566, "fio":"Магазёв Алексей Анатольевич"},
 {"id":711181,"fio":"Самотуга Александр Евгеньевич"},
-{"id":1557,"fio":"Михеев Виталий Викторович"},
-{"id":480,"fio":"Данилова Ольга Тимофеевна"},
-{"id":808,"fio":"Логинов Константин Валентинович"},
-{"id":1556,"fio":"Трапезников Евгений Валерьевич"}]&discipline=Комплексная Защита Информации
-&group={"id":1, "name": "РТ-161", "speciality": "Радиоэлектроника"}&student={"id":1, "first_name": "Иван", "last_name":"Иванов"}
-&subject={"id": 1, "name":"БОС"}
+{"id":1557,"fio":"Михеев Виталий Викторович"}]
+&group={"id":1, "name": "РТ-161", "speciality": "Радиоэлектроника"}&student={"id":2, "first_name": "Иван", "last_name":"Иванов"}
+&subject={"id": 1, "name":"Комплексная Защита Информации"}
 */
 
 class Test extends React.Component {
@@ -57,7 +54,7 @@ class Test extends React.Component {
         if (this.props.query.lecturers && this.props.match.path === '/lecturers') {
             return (
                 <QuestionnarieForm lecturers={/*lecturers*/JSON.parse(this.props.query.lecturers)}
-                                   discipline={this.props.query.discipline}/>
+                                   discipline={JSON.parse(this.props.query.subject).name}/>
             )
         }
 
@@ -82,7 +79,8 @@ class Test extends React.Component {
             return (
                 <div>
                     <br></br>
-                    <h3 align="center">Ошибка! Возмжно вы уже голосовали за дисциплину `{JSON.parse(this.props.query.subject).name}`,
+                    <h3 align="center">Ошибка! Возможно вы уже голосовали за дисциплину
+                        `{JSON.parse(this.props.query.subject).name}`,
                         которую преподаёт {lecturer.fio}</h3>
                 </div>
             )

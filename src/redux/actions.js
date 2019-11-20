@@ -23,7 +23,7 @@ export const fetchQuestionnaire = async function (dispatch) {
 };
 
 export const sendAnswer = function (message) {
-    return fetch('http://127.0.0.1:3001/api/answer', {
+    return fetch('http://127.0.0.1:3001/api/answer', {   //46.233.196.46
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
