@@ -10,7 +10,7 @@ export const setQuestionnaire = function (quest) {
 
 export const fetchQuestionnaire = async function (dispatch) {
 
-    fetch('http://127.0.0.1:3001/api/questionnaire').then(res => res.json())
+    fetch('http://192.168.20.44:3001/api/questionnaire').then(res => res.json())
         .then((questionnaire) => {
 
             const quest = questionnaire.questionnaire.json;
@@ -23,7 +23,7 @@ export const fetchQuestionnaire = async function (dispatch) {
 };
 
 export const sendAnswer = function (message) {
-    return fetch('http://127.0.0.1:3001/api/answer', {   //46.233.196.46
+    return fetch('http://192.168.20.44:3001/api/answer', {   //46.233.196.46
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
